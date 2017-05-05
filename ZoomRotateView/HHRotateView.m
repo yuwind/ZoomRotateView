@@ -216,6 +216,7 @@ typedef NS_ENUM(NSUInteger, Direction)
 
 - (UITableView *)tableView
 {
+    if (_tableView) return _tableView;
     if(![self superview]) return nil;
     for (UIView *next = [self superview]; next; next = next.superview) {
         if ([next isKindOfClass:[UITableView class]])
@@ -422,7 +423,7 @@ typedef NS_ENUM(NSUInteger, Direction)
         self.describeLabel.frame = CGRectMake(self.labelOrigin.x, self.labelOrigin.y, self.width - 2 * self.labelOrigin.x, 20);
     self.scrollView.frame = self.bounds;
     if([self tableView])
-        [[self tableView] setContentOffset:CGPointZero];
+    [[self tableView] setContentOffset:CGPointZero];
     [self bringSubviewToFront:_pageControl];
     [self insertSubview:_shadowView aboveSubview:self.scrollView];
     [self setPageControlPosition];
@@ -645,7 +646,7 @@ typedef NS_ENUM(NSUInteger, Direction)
 - (void)dealloc
 {
     if(!_showScale || ![self tableView])return;
-    [self removeObserver:self forKeyPath:@"contentOffset"];
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 - (void)startWave
