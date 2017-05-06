@@ -41,14 +41,14 @@
     [super viewDidLoad];
     
     NSArray *imageArray = [NSArray arrayWithObjects:@"http://images.jhrx.cn/attachment/forum/pw/Mon_1206/48_158056_6e7ad5b6cc4f406.jpg",@"http://www.pptbz.com/pptpic/UploadFiles_6909/201110/20111014111307895.jpg",@"http://pic1.win4000.com/wallpaper/4/5599f66607098_270_185.jpg", nil];
+    
     NSArray *titleArray = [NSArray arrayWithObjects:@"1,nihao,nijiaoshenmmingzi",@"2,wojiaoshuishuishui",@"3ozhidoale,zaijian", nil];
     
     
-        self.tableView.tableHeaderView= [HHRotateView rotateViewWithFrame:CGRectMake(0, 0, 0, 200) imageArray:imageArray describeArray:titleArray showScale:YES];
+//    self.tableView.tableHeaderView= [HHRotateView rotateViewWithFrame:CGRectMake(0, 0, 0, 200) imageArray:imageArray describeArray:titleArray showScale:YES];
     
-    //
+    
     HHRotateView *rotateView = [HHRotateView rotateViewWithFrame:CGRectMake(0, 0, 0, 200) imageArray:imageArray describeArray:titleArray showScale:YES];
-    
     rotateView.rotateMode = RotateMode3D;
     rotateView.pageColor = pageColorMake([UIColor redColor],[UIColor yellowColor]);
     rotateView.labelAttribute = labelAttributeMake([UIColor yellowColor], 20);
@@ -56,9 +56,8 @@
     rotateView.waveColor = [UIColor whiteColor];
     rotateView.waveFrequency = 5.0f;
     
+    self.tableView.tableHeaderView = rotateView;
     
-    self.tableView.tableHeaderView= rotateView;
-    //
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -83,17 +82,18 @@
 {
     NSLog(@"发送网络请求");
     [self showWaitHud];
+    __weak __typeof(self) wSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         /**
          *  数据请求成功回调
          */
-        [self hideWaitHud];
+        [wSelf hideWaitHud];
         [rotateView stopWave];
-        [self showText:self.alertArray[arc4random_uniform((u_int32_t)[self.alertArray count])]];
+        [wSelf showText:self.alertArray[arc4random_uniform((u_int32_t)[self.alertArray count])]];
         
-        [self.dataArray addObject:[NSString stringWithFormat:@"helloWord%ld",self.dataArray.count+1]];
-        [self.tableView reloadData];
+        [wSelf.dataArray addObject:[NSString stringWithFormat:@"helloWord%ld",self.dataArray.count+1]];
+        [wSelf.tableView reloadData];
         
     });
     
@@ -101,17 +101,18 @@
 - (void)pushToSendNetworkRequest:(HHRotateView *)rotateView
 {
     [self showWaitHud];
+    __weak __typeof(self) wSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         /**
          *  数据请求成功回调
          */
-        [self hideWaitHud];
+        [wSelf hideWaitHud];
         [rotateView stopPushRefresh];
-        [self showText:self.alertArray[arc4random_uniform((u_int32_t)[self.alertArray count])]];
+        [wSelf showText:self.alertArray[arc4random_uniform((u_int32_t)[self.alertArray count])]];
         
-        [self.dataArray addObject:[NSString stringWithFormat:@"helloWord%ld",self.dataArray.count+1]];
-        [self.tableView reloadData];
+        [wSelf.dataArray addObject:[NSString stringWithFormat:@"helloWord%ld",self.dataArray.count+1]];
+        [wSelf.tableView reloadData];
         
     });
 }
