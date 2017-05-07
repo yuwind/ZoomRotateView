@@ -73,6 +73,7 @@ typedef NS_ENUM(NSUInteger, Direction)
 
 @property (nonatomic, assign) CGFloat rate;
 @property (nonatomic, strong) NSArray *animationArray;
+@property (nonatomic, assign) BOOL isAddObserver;
 
 @end
 
@@ -412,7 +413,8 @@ typedef NS_ENUM(NSUInteger, Direction)
 }
 
 #pragma mark 布局子控件
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
     
     self.scrollView.contentInset = UIEdgeInsetsZero;
@@ -435,7 +437,8 @@ typedef NS_ENUM(NSUInteger, Direction)
 - (void)scaleImageView
 {
     if(!_showScale || ![self tableView])return;
-    
+    if (_isAddObserver) return;
+    _isAddObserver = YES;
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
 
