@@ -1,9 +1,10 @@
 # ZoomRotateView
 这是一个会缩放的轮播图，自带波浪刷新以及3D变化
 
-![image](https://github.com/yuwind/ZoomRotateView/blob/master/ScreenShort/zoomRotateView.gif)  
- 
- 
+![image](https://github.com/yuwind/ZoomRotateView/blob/master/ScreenShort/zoomRotateView.gif)
+
+
+
 **说明：**
 	 此轮播图借鉴了[XRCarouselView](https://github.com/codingZero/XRCarouselView)，同时加入了新的元素，融合了特效，简化了使用方法。最后对开源的开发者表示感谢！
 	 
