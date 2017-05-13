@@ -1,9 +1,7 @@
 # ZoomRotateView
 这是一个会缩放的轮播图，自带波浪刷新以及3D变化
 
-**详见效果图**
 ![image](https://github.com/yuwind/ZoomRotateView/blob/master/ScreenShort/zoomRotateView.gif)  
- 
  
  
 **说明：**
